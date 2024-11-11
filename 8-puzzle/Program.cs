@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 public class PuzzleState : IComparable<PuzzleState>
 {
@@ -18,10 +17,9 @@ public class PuzzleState : IComparable<PuzzleState>
         EmptyCol = emptyCol;
         Depth = depth;
         Parent = parent;
-        Cost = depth + GetManhattanDistance(); // A* usa profundidade + heurística
+        Cost = depth + GetManhattanDistance();
     }
 
-    // Calcula a distância de Manhattan
     private int GetManhattanDistance()
     {
         int distance = 0;
@@ -30,7 +28,7 @@ public class PuzzleState : IComparable<PuzzleState>
             for (int j = 0; j < 3; j++)
             {
                 int value = Puzzle[i, j];
-                if (value != 0) // Ignora o espaço vazio
+                if (value != 0)
                 {
                     int targetRow = (value - 1) / 3;
                     int targetCol = (value - 1) % 3;
@@ -38,17 +36,14 @@ public class PuzzleState : IComparable<PuzzleState>
                 }
             }
         }
-
         return distance;
     }
 
-    // Implementação da interface IComparable para ordenar na fila de prioridade
     public int CompareTo(PuzzleState other)
     {
         return Cost.CompareTo(other.Cost);
     }
 
-    // Gera estados de movimento (subproblemas) ao mover a peça vazia
     public List<PuzzleState> GenerateSuccessors()
     {
         List<PuzzleState> successors = new List<PuzzleState>();
@@ -61,21 +56,18 @@ public class PuzzleState : IComparable<PuzzleState>
 
             if (newRow >= 0 && newRow < 3 && newCol >= 0 && newCol < 3)
             {
-                // Cria uma nova configuração do quebra-cabeça
                 int[,] newPuzzle = (int[,])Puzzle.Clone();
                 newPuzzle[EmptyRow, EmptyCol] = newPuzzle[newRow, newCol];
                 newPuzzle[newRow, newCol] = 0;
                 successors.Add(new PuzzleState(newPuzzle, newRow, newCol, Depth + 1, this));
             }
         }
-
         return successors;
     }
 
-    // Verifica se o estado atual é a solução
     public bool IsGoal()
     {
-        int[,] goal = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
+        int[,] goal = { { 0, 1, 2 }, { 3, 4, 5 }, { 6, 7, 8 } };
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
@@ -84,11 +76,9 @@ public class PuzzleState : IComparable<PuzzleState>
                     return false;
             }
         }
-
         return true;
     }
 
-    // Exibe o estado atual do puzzle
     public void PrintPuzzle()
     {
         for (int i = 0; i < 3; i++)
@@ -97,10 +87,8 @@ public class PuzzleState : IComparable<PuzzleState>
             {
                 Console.Write(Puzzle[i, j] + " ");
             }
-
             Console.WriteLine();
         }
-
         Console.WriteLine();
     }
 }
@@ -152,8 +140,7 @@ public class PuzzleSolver
         Console.WriteLine("Solução não encontrada.");
     }
 
-    // Converte o puzzle para string para verificar estados visitados
-    private static string PuzzleToString(int[,] puzzle)
+    public static string PuzzleToString(int[,] puzzle)
     {
         string result = "";
         for (int i = 0; i < 3; i++)
@@ -163,11 +150,9 @@ public class PuzzleSolver
                 result += puzzle[i, j] + ",";
             }
         }
-
         return result;
     }
 
-    // Imprime a sequência de movimentos até a solução
     private static void PrintSolution(PuzzleState state)
     {
         Stack<PuzzleState> path = new Stack<PuzzleState>();
@@ -189,48 +174,46 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        int[,] initialPuzzle = GenerateRandomArray();
+        int[,] initialPuzzle = GenerateSolvableArray();
         PuzzleSolver.Solve(initialPuzzle);
     }
 
-    private static int[,] GenerateRandomArray()
+    private static int[,] GenerateSolvableArray()
     {
-        int[,] initialPuzzle =
+        List<int> numbers = new List<int>();
+        for (int i = 0; i < 9; i++) numbers.Add(i);
+        Random rng = new Random();
+        
+        do
         {
-            { -1, -1, -1 },
-            { -1, -1, -1 },
-            { -1, -1, -1 }
-        };
-        var random = new Random();
-
-        for (int row = 0; row < 3; row++)
-        {
-            for (int col = 0; col < 3; col++)
+            for (int i = numbers.Count - 1; i > 0; i--)
             {
-                var nextInt =  random.Next(0, 9);
-                while (FindNumber(initialPuzzle, nextInt))
-                {
-                    nextInt = random.Next(0, 9);
-                }
-                initialPuzzle[row, col] = nextInt;
+                int j = rng.Next(i + 1);
+                int temp = numbers[i];
+                numbers[i] = numbers[j];
+                numbers[j] = temp;
             }
-        }
+        } while (!IsSolvable(numbers.ToArray()));
 
-        return initialPuzzle;
+        int[,] puzzle = new int[3, 3];
+        for (int i = 0; i < 9; i++)
+        {
+            puzzle[i / 3, i % 3] = numbers[i];
+        }
+        return puzzle;
     }
-    
-    public static bool FindNumber(int[,] array, int target)
+
+    private static bool IsSolvable(int[] puzzle)
     {
-        for (int i = 0; i < array.GetLength(0); i++) // Loop through rows
+        int inversions = 0;
+        for (int i = 0; i < puzzle.Length; i++)
         {
-            for (int j = 0; j < array.GetLength(1); j++) // Loop through columns
+            for (int j = i + 1; j < puzzle.Length; j++)
             {
-                if (array[i, j] == target)
-                {
-                    return true; // Return true if the number is found
-                }
+                if (puzzle[i] > puzzle[j] && puzzle[i] != 0 && puzzle[j] != 0)
+                    inversions++;
             }
         }
-        return false; // Return false if the number is not found
+        return inversions % 2 == 0;
     }
 }

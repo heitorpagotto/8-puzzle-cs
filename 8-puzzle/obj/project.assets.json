@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\heito\\Documents\\Projects\\Faculdade\\Paradigmas\\prova final\\8-puzzle\\8-puzzle\\8-puzzle.csproj",
+      "projectUniqueName": "C:\\Users\\heito\\Documents\\Projects\\Faculdade\\Paradigmas\\prova final\\8-puzzle-cs\\8-puzzle\\8-puzzle.csproj",
       "projectName": "8-puzzle",
-      "projectPath": "C:\\Users\\heito\\Documents\\Projects\\Faculdade\\Paradigmas\\prova final\\8-puzzle\\8-puzzle\\8-puzzle.csproj",
+      "projectPath": "C:\\Users\\heito\\Documents\\Projects\\Faculdade\\Paradigmas\\prova final\\8-puzzle-cs\\8-puzzle\\8-puzzle.csproj",
       "packagesPath": "C:\\Users\\heito\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\heito\\Documents\\Projects\\Faculdade\\Paradigmas\\prova final\\8-puzzle\\8-puzzle\\obj\\",
+      "outputPath": "C:\\Users\\heito\\Documents\\Projects\\Faculdade\\Paradigmas\\prova final\\8-puzzle-cs\\8-puzzle\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\heito\\AppData\\Roaming\\NuGet\\NuGet.Config"
