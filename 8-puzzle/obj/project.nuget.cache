@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "udg3EOxxFA5C9RANCaYkj4PmgM+gow85TBqvK1n8BkiN8pxAgZZPZyuIxCux5Po3n34hdmg6/ASkpmXA7rVPRg==",
+  "dgSpecHash": "y8Q3s7XGy7uPNK7SeOVkrJNWIf99FG29+R5GAmX/jTx00aAJVHS7y/KNGIFzo7stFcItsdOb/OpwQV7FyyRABQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\heito\\Documents\\Projects\\Faculdade\\Paradigmas\\prova final\\8-puzzle\\8-puzzle\\8-puzzle.csproj",
+  "projectFilePath": "C:\\Users\\heito\\Documents\\Projects\\Faculdade\\Paradigmas\\prova final\\8-puzzle-cs\\8-puzzle\\8-puzzle.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\heito\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.8\\microsoft.aspnetcore.openapi.8.0.8.nupkg.sha512",
     "C:\\Users\\heito\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
