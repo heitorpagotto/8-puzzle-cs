@@ -1,0 +1,6 @@
+﻿services:
+  8-puzzle:
+    image: 8-puzzle
+    build:
+      context: .
+      dockerfile: 8-puzzle/Dockerfile
