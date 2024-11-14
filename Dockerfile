@@ -7,7 +7,8 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["8-puzzle/8-puzzle.csproj", "8-puzzle/"]
+COPY ["../8-puzzle/8-puzzle.csproj", "8-puzzle/"]
+COPY ["../Application/Application.csproj", "Application/"]
 RUN dotnet restore "8-puzzle/8-puzzle.csproj"
 COPY . .
 WORKDIR "/src/8-puzzle"
