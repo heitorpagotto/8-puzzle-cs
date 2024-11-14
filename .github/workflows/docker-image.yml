@@ -34,3 +34,19 @@ jobs:
         # Push both tags to Docker Hub
         docker push ${{ vars.DOCKER_HUB_USERNAME }}/8-puzzle-cs:${{ github.sha }}
         docker push ${{ vars.DOCKER_HUB_USERNAME }}/8-puzzle-cs:latest
+   
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ vars.AZURE_CREDENTIALS }}
+    
+    - name: Deploy to Azure Web App
+      run: |
+        az webapp config container set \
+          --name ${{ vars.AZURE_WEBAPP_NAME }} \
+          --resource-group ocr-tail-dev \
+          --docker-custom-image-name heitorpagotto/8-puzzle-cs:latest
+
+    - name: Restart Azure Web App
+      run: |
+        az webapp restart --name ${{ vars.AZURE_WEBAPP_NAME }} --resource-group ocr-tail-dev
