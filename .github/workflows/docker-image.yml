@@ -18,18 +18,18 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        username: ${{ vars.DOCKER_HUB_USERNAME }}
+        password: ${{ vars.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Build and Tag the Docker image
       run: |
         # Build the image and tag it with the commit SHA
-        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/8-puzzle-cs:${{ github.sha }} .
+        docker build -t ${{ vars.DOCKER_HUB_USERNAME }}/8-puzzle-cs:${{ github.sha }} .
         # Tag the image as 'latest'
-        docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/8-puzzle-cs:${{ github.sha }} ${{ secrets.DOCKER_HUB_USERNAME }}/8-puzzle-cs:latest
+        docker tag ${{ vars.DOCKER_HUB_USERNAME }}/8-puzzle-cs:${{ github.sha }} ${{ vars.DOCKER_HUB_USERNAME }}/8-puzzle-cs:latest
 
     - name: Push the Docker image
       run: |
         # Push both tags to Docker Hub
-        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/8-puzzle-cs:${{ github.sha }}
-        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/8-puzzle-cs:latest
+        docker push ${{ vars.DOCKER_HUB_USERNAME }}/8-puzzle-cs:${{ github.sha }}
+        docker push ${{ vars.DOCKER_HUB_USERNAME }}/8-puzzle-cs:latest
