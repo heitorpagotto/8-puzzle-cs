@@ -43,7 +43,6 @@ public class PuzzleSolverService : IPuzzleSolverService
             }
 
             closedList.Add(puzzleString);
-            returnList.Add(ConvertStringToList(puzzleString));
 
             foreach (PuzzleState successor in current.GenerateSuccessors())
             {
@@ -59,6 +58,8 @@ public class PuzzleSolverService : IPuzzleSolverService
             returnList.Add(ConvertStringToList(PuzzleToString(goalState.Puzzle)));
             goalState = goalState.Parent;
         }
+
+        returnList.Reverse();
 
         return returnList;
     }
