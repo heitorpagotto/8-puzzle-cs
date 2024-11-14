@@ -14,9 +14,14 @@ public class PuzzleSolverController(IPuzzleSolverService puzzleSolverService) : 
         var totalResult = puzzleSolverService.Solve();
 
         var finalResult = new List<List<int>>();
-        
-        finalResult.AddRange(totalResult.Take(50));
-        finalResult.AddRange(totalResult.Skip(totalResult.Count - 50));
+
+        if (totalResult.Count > 100)
+        {
+            finalResult.AddRange(totalResult.Take(50));
+            finalResult.AddRange(totalResult.Skip(totalResult.Count - 50));
+        }
+        else
+            finalResult.AddRange(totalResult);
         
         var response = new PuzzleSolverResponse()
         {
