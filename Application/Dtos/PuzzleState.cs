@@ -21,6 +21,7 @@ public class PuzzleState : IComparable<PuzzleState>
 
     private int GetManhattanDistance()
     {
+        // Calcula a distancia manhattan para cada número do puzzle atingir o local desejado
         int distance = 0;
         for (int i = 0; i < 3; i++)
         {
@@ -45,6 +46,7 @@ public class PuzzleState : IComparable<PuzzleState>
 
     public List<PuzzleState> GenerateSuccessors()
     {
+        // Gera possíveis sucessores baseado nas posições do espaço vazio
         List<PuzzleState> successors = new List<PuzzleState>();
         int[,] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 
@@ -66,6 +68,7 @@ public class PuzzleState : IComparable<PuzzleState>
 
     public bool IsGoal()
     {
+        // Valida se o puzzle é o mesmo do desejado
         int[,] goal = { { 0, 1, 2 }, { 3, 4, 5 }, { 6, 7, 8 } };
         for (int i = 0; i < 3; i++)
         {
@@ -80,6 +83,7 @@ public class PuzzleState : IComparable<PuzzleState>
     
     public void PrintPuzzle()
     {
+        // Printa o puzzle no console
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
